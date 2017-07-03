@@ -1,38 +1,27 @@
 import fetch from '../config/fetch'
-/**
- * 创建临时数据
- */
-const setpromise = data => {
-  return new Promise((resolve, reject) => {
-    resolve(data)
-  })
-}
 
   /**
    * 获取短信验证码
    */
-
-var mobileCode = phone => fetch('POST', '/v4/mobile/verify_code/send', {
+const mobileCode = phone => fetch('POST', '/v4/mobile/verify_code/send', {
   mobile: phone,
   scene: 'login',
   type: 'sms'
 })
 
-var getcaptchas = () => fetch('POST', '/v1/captchas', {})
-
   /**
    * 账号密码登录
    */
 
-var accountLogin = (fname, fpassword) => fetch('POST', '/ua/userlogin', {fname, fpassword})
+const accountLogin = (data) => fetch('POST', '/ua/userLogin', (data))
 
-var accessTokenLogin = (token) => fetch('POST', '/ua/tokenLogin', {token})
+const accessTokenLogin = (data) => fetch('GET', '/ua/tokenLogin', (data))
 
   /**
    * 检测帐号是否存在
    */
 
-var checkExsis = (checkNumber, type) => fetch('GET', '/v1/users/exists', {
+const checkExtis = (checkNumber, type) => fetch('GET', '/v1/users/exists', {
   [type]: checkNumber,
   type
 })
@@ -41,6 +30,7 @@ var checkExsis = (checkNumber, type) => fetch('GET', '/v1/users/exists', {
    * 获取用户信息
    */
 
-var getUser = () => fetch('GET', '/v1/user', {})
+const getUsers = (data) => fetch('GET', '/auth/getUsers', (data))
 
-export {mobileCode, accountLogin, checkExsis, getcaptchas, getUser, accessTokenLogin}
+const loginOut = (data) => fetch('GET', '/auth/getUser', (data))
+export default {mobileCode, accountLogin, checkExtis, getUsers, accessTokenLogin, loginOut}

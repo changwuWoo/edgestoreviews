@@ -2,13 +2,13 @@
   <div>
     <div class="lay_top">
       <div class="lay_top_inner" style="width: 688px;">
-        <h1 class="logo text_hide">QQ登录</h1>
+        <h1 class="logo text_hide">登录</h1>
         <div class="lat_top_other">
-          <a href="http://connect.qq.com/intro/·login" target="_blank" title="什么是QQ登录"><i class="icon_help_white"></i>QQ登录</a>
+          <a href="http://connect.qq.com/intro/·login" target="_blank" title="什么是QQ登录"><i class="icon_help_white"></i>登录</a>
           <span class="line">|</span>
           <a href="http://connect.qq.com/toc/auth_manager?from=auth" id="auth_manager_link" target="_blank"
              title="登录授权管理">授权管理</a>
-          <span class="line">|</span>
+          <span class="line">|</span>·
           <a href="http://connect.qq.com/manage" target="_blank" title="申请接入">申请接入</a>
         </div>
       </div>
@@ -56,18 +56,21 @@
                   </span>
                 </div>
                 <div class="authInfo">
-                  <a class="face" id="auth_area" tabindex="1" href="javascript:void(0);" @click="accessLogin" draggable="false" style="width: 160px;height: 200px;border: #9f75ff solid 1px;display: block">
+                  <div class="face" id="auth_area" tabindex="1" draggable="false" style="height: 200px;border: #9f75ff solid 1px;display: block">
                     <img id="auth_face">
                     <span id="auth_mengban" class=""></span>
                     <span class="uin" id="auth_uin"></span>
                     <span class="img_out_focus"></span>
                     <span class="nick" id="auth_nick"></span>
-                    <input type="text"  v-model="loginToken">
-                    点击头像确认登录
-                  </a>
+                    <div class="form-group">
+                      <label>用户令牌登录</label>
+                      <textarea v-model="loginToken" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div @click="accessLogin"class="btn btn-success">令牌登录</div>
+                  </div>
                 </div>
                 <div class="cancleAuthOuter" id="cancleAuthOuter">
-                  <a id="cancleAuth" class="cancleAuth">使用其他帐号</a>
+                  <router-link to="/login">使用其他帐号</router-link>
                 </div>
                 <div class="bottom"></div>
               </div>
@@ -78,7 +81,7 @@
       <div class="page_accredit combine_page_children float_left">
         <div class="lay_main" id="lay_main">
           <div class="lay_accredit_con">
-            <p class="cnt_wording">该网站已有超过1万用户使用QQ登录</p>
+            <p class="cnt_wording">该网站已有超过1万用户使用登录</p>
             <p class="app_site_wording"><a class="accredit_site" id="accredit_site_link"
                                            href="http://www.processon.com/"
                                            target="_blank">ProcessOn</a>将获得以下权限：</p>
@@ -119,27 +122,49 @@
 </template>
 <script>
   import util from '../config/utils'
-  import {mapGetters, mapState} from 'vuex'
-  let token = util.token.get()
+  import {mapState, mapMutations} from 'vuex'
+  import api from '../config/api'
   export default {
     data () {
       return {
-        curloginStatus: false
+        loginToken: ''
       }
     },
+    mounted () {
+      this.initData()
+    },
     computed: {
-      ...mapState([
-        loginToken: state => state.user.loginToken
-      ])
     },
     methods: {
-      accessLogin: function (event) {
-        alert('djhfgjhds')
+      initData: function() {
+        this.loginToken = util.token.get()
+      },
+      accessLogin: function () {
+        let data = {
+          authorization: this.loginToken
+        }
+        let self = this
+        api.accessTokenLogin(data)
+          .then(response => {
+            if (response.code === 200) {
+              util.token.save(response.Authorization)
+              self.$router.push({path: '/home', replace: true})
+              console.log(response)
+            }
+            else {
+              alert(response.msg)
+              self.$router.push({path: '/login', replace: true})
+            }
+          }).catch(err => {
+            console.log(err)
+          })
       }
     }
   }
 </script>
 <style>
+  @import "../assets/css/bootstrap.css";
+  @import "../assets/css/font-awesome.css";
   html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, input, button, textarea, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
     margin: 0;
     padding: 0

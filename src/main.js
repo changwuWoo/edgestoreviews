@@ -3,14 +3,11 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import axios from 'axios'
-
 import store from './vuex/index'
 
 Vue.config.productionTip = false
-
+// 使用vee-validate
 /* eslint-disable no-new */
-Vue.prototype.$http = axios
 Vue.prototype.$store = store
 new Vue({
   el: '#app',

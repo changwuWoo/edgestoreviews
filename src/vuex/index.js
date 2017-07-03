@@ -1,14 +1,14 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+/**
+ * Created by Administrator on 2017/5/15.
+ */
 
-import user from './user/index'
-import commmon from './common/index'
-
-Vue.use(Vuex)
-
-export default new Vuex.Store({
-  modules: {
-    user,
-    commmon
-  }
-})
+import actions from './actions'
+import mutations from './mutations'
+import getters from './getters'
+import state from './state'
+export default {
+  state,
+  actions,
+  getters,
+  mutations
+}

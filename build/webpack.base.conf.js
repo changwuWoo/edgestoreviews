@@ -23,9 +23,9 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
-      'assets': resolve('/src/assets'),
-      'components': resolve('../src/components'),
-      'views': resolve( '../src/views')
+      'assets': resolve('src/assets'),
+      'components': resolve('src/components'),
+      'views': resolve( 'src/views')
     }
   },
   module: {
@@ -48,6 +48,10 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         include: [resolve('src'), resolve('test')]
+      },
+      {
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

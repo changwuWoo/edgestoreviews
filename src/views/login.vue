@@ -13,11 +13,11 @@
             <br/>
             <div class="form-group input-group">
               <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-              <input type="text" class="form-control" placeholder="Your Username " v-model="master.fname"/>
+              <input type="text" class="form-control" placeholder="Your Username " v-model="fname"/>
             </div>
             <div class="form-group input-group">
               <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-              <input type="password" class="form-control" placeholder="Your Password" v-model="master.fpassword"/>
+              <input type="password" class="form-control" placeholder="Your Password" v-model="fpasswd"/>
             </div>
             <div class="form-group">
               <label class="checkbox-inline">
@@ -31,7 +31,10 @@
               <input class="btn btn-primary btn-danger" @click="login" value="现在登录">
             </div>
             <hr/>
-            还木有注册 ? <a href="index.html">点我 </a> 或者 现在去 <a href="index.html">首页</a>
+            还木有注册 ?
+            <router-link to="/register">点我</router-link>
+            或者 现在去
+            <router-link to="/accessLogin">令牌登录</router-link>
           </form>
         </div>
       </div>
@@ -40,26 +43,33 @@
 </template>
 <script>
   import {mapState, mapGetters} from 'vuex'
-  import {accountLogin} from '../config/api'
-  import {baseUrl} from '../config/env'
+  import api from '../config/api'
+  import util from '../config/utils'
   export default {
     name: 'login',
     data () {
       return {
-        master: {
-          fname: 'eedegWoo',
-          fpassword: 'eedgeWoo0608'
-        },
+        fname: 'eedegWoo',
+        fpasswd: 'eedgeWoo0608',
         checked: 'checked'
       }
     },
-    computed: 
-      ...mapGetters({
-        'loginToken'
-    }),
     methods: {
       async login () {
-        this.$store.dispatch('userLogin', {fname: this.master.fname, fpassword: this.master.fpassword})
+        let self = this
+        let parameter = {
+          loginName: self.fname,
+          loginPassWord: self.fpasswd
+        }
+        api.accountLogin(parameter).then(response => {
+          if (response.code === 200) {
+            util.token.save(response.Authorization)
+            this.$router.push('/home')
+          }
+          else {
+            alert(response.msg)
+          }
+        })
       }
     }
   }

@@ -1,11 +1,11 @@
-var CONST = {
+const CONST = {
   ACCESS_TOKEN: 'access_token',
+  AUTHORIZATION: 'authorization',
   HOMEPAGE: '/',
   LOGINPAGE: '/login'
 }
-
 // 访问排除页面
-var excludeUrl = [CONST.HOMEPAGE, CONST.LOGINPAGE]
+const excludeUrl = [CONST.HOMEPAGE, CONST.LOGINPAGE]
 
 /*
  * 用户如果认证返回true
@@ -33,7 +33,7 @@ function saveAccessToken (accessToken) {
  */
 function authService (router) {
   router.beforeEach((to, from, next) => {
-    var url = to.path
+    const url = to.path
     // 访问的不是排除页面，并且没有认证，则跳转到登录页面
     if ((excludeUrl.indexOf(url)) === -1 && !isAuth()) {
       next({

@@ -1,3 +1,4 @@
 build/*.js
 config/*.js
 fetch.js
+src/assets/*.js
