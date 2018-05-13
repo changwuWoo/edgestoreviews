@@ -21,14 +21,14 @@ module.exports = {
   },
   output: {
     path: path.resolve(BUILD_PATH),
-    filename: JS_NAME,
+    // filename: JS_NAME,
     publicPath: './public'
   },
   resolve: {
     extensions: ['.js', '.vue', '.json', '.jsx']
   },
   plugins: [
-    new ExtractTextPlugin(CSS_NAME,{allChunks:true})
+    // new ExtractTextPlugin(CSS_NAME,{allChunks:true})
   ],
   module: {
     rules: [
