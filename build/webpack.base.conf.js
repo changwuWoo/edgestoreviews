@@ -1,33 +1,35 @@
-var path = require('path')
-var utils = require('./utils')
-var config = require('../config')
-var vueLoaderConfig = require('./vue-loader.conf')
-
-function resolve (dir) {
-  return path.join(__dirname, '..', dir)
-}
+const path = require('path')
+const utils = require('./utils')
+const webpack = require('webpack')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const config = require('../config')
+const vueLoaderConfig = require('./vue-loader.conf')
+const IS_DEV = process.env.NODE_ENV === 'development'
+const ROOT_PATH = path.resolve(__dirname, '../')
+const BUILD_PATH = IS_DEV ? path.resolve(ROOT_PATH, '../nextCloudLib-dev/web/webapp/public') : path.resolve(ROOT_PATH, 'public')
+const JS_NAME = IS_DEV ? 'js/[name].js' : 'js/[name].[chunkhash.8].js'
+const CSS_NAME = IS_DEV ? 'css/[name].css' : 'css/[name].[chunkhash.8].css'
+const LESS_NAME = IS_DEV ? '[name]_[local]_[hash:base64:4]' : '[hash:base64:8]'
 
 module.exports = {
+  stats: {
+    chunks: false,
+    children: false
+  },
   entry: {
-    app: './src/main.js'
+    lib: []
   },
   output: {
-    path: config.build.assetsRoot,
-    filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+    path: path.resolve(BUILD_PATH),
+    filename: JS_NAME,
+    publicPath: './public'
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
-    alias: {
-      'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src'),
-      'assets': resolve('src/assets'),
-      'components': resolve('src/components'),
-      'views': resolve( 'src/views')
-    }
+    extensions: ['.js', '.vue', '.json', '.jsx']
   },
+  plugins: [
+    new ExtractTextPlugin(CSS_NAME,{allChunks:true})
+  ],
   module: {
     rules: [
       {
@@ -51,7 +53,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
+        use: ['style-loader', 'css-loader']
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
