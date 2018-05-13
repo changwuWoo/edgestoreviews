@@ -1,44 +1,40 @@
 <template>
-    <div class="group">
-        <cell v-for="(item,index) in cellLists" 
-            :link="item.link" 
-            :icon-url="item.iconUrl" 
-            :text="item.text" 
-            :desc="item.desc" 
-            :badg="item.badg"
-            :more="item.more"
-            :avatar="item.avatar"
-            :key="index">
-        </cell>
-    </div>
+  <div class="group">
+    <cell v-for="(item,index) in cellLists"
+          :link="item.link"
+          :icon-url="item.iconUrl"
+          :text="item.text"
+          :desc="item.desc"
+          :badg="item.badg"
+          :more="item.more"
+          :avatar="item.avatar"
+          :key="index">
+    </cell>
+  </div>
 </template>
 
 <script>
-import cell from '@/components/userCell'
+  import cell from '@/components/userCell'
 
-export default {
+  export default {
     props: {
-        cellLists: Array
+      cellLists: Array
     },
     components: {
-        cell
+      cell
     },
-    data() {
-        return {
-            
-        }
+    data () {
+      return {}
     },
-    methods: {
-
-    }
-}
+    methods: {}
+  }
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/css/function';
+  @import '../assets/css/function';
 
-.group {
-    margin-bottom: px2rem(20px);
-}
+  .group {
+    margin-bottom: px2 rem(20px);
+  }
 
 </style>

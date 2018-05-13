@@ -1,6 +1,8 @@
 import axios from 'axios'
+
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 axios.defaults.baseURL = '后台接口公共前缀'
+
 export function fetch (url, params) {
   return new Promise((resolve, reject) => {
     axios.post(url, params)
@@ -12,6 +14,7 @@ export function fetch (url, params) {
       })
   })
 }
+
 export default {
   // 获取我的页面的后台数据
   mineBaseMsgApi () {

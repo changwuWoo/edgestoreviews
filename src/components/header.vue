@@ -15,10 +15,8 @@
       backDisplay: Boolean,
       mapDisplay: Boolean
     },
-    data() {
-      return {
-        
-      }
+    data () {
+      return {}
     },
     methods: {
       goBack () {
@@ -35,36 +33,36 @@
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/css/function';
+  @import '../assets/css/function';
 
-.header{
-  position: fixed;
-  transform: translateZ(0);
-  top: 0;
-  z-index: 4;
-  height: px2rem(100px);
-  width: 100%;
-  background: #76D49B;
-  display: flex;
-  flex-direction: row;
-  .header-icon{
-    flex:1;
-    text-align: center;
-    >i{
-      line-height: px2rem(100px);
+  .header {
+    position: fixed;
+    transform: translateZ(0);
+    top: 0;
+    z-index: 4;
+    height: px2rem(100px);
+    width: 100%;
+    background: #76D49B;
+    display: flex;
+    flex-direction: row;
+    .header-icon {
+      flex: 1;
+      text-align: center;
+      > i {
+        line-height: px2rem(100px);
+      }
+      .map-icon {
+        font-size: 22px;
+      }
     }
-    .map-icon{
-      font-size: 22px;
-    }
-  }
-  
-  .header-cont {
-    flex: 6;
-    padding-left: px2rem(40px);
-      >p{
+
+    .header-cont {
+      flex: 6;
+      padding-left: px2rem(40px);
+      > p {
         line-height: px2rem(100px);
         color: #ffffff;
-        font-size:17px;
+        font-size: 17px;
       }
     }
   }
