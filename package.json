@@ -5,8 +5,8 @@
   "author": "changwuWoo <eedgeWoo@outlook.com>",
   "private": true,
   "scripts": {
-    "dev": "node build/dev-server.js",
-    "start": "node build/dev-server.js",
+//    "dev": "node build/dev-server.js",
+//    "start": "node build/dev-server.js",
     "build": "node build/build.js"
   },
   "dependencies": {
@@ -43,6 +43,7 @@
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.4",
     "friendly-errors-webpack-plugin": "^1.6.1",
+    "gulp": "^3.9.1",
     "html-webpack-plugin": "^2.30.1",
     "nightwatch": "^0.9.12",
     "node-notifier": "^5.1.2",

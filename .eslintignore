@@ -1,4 +1,4 @@
-build/*.js
-config/*.js
+//build/*.js
+//config/*.js
 fetch.js
 src/assets/*.js
