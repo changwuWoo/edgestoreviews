@@ -9,8 +9,8 @@ exports.assetsPath = function (_path) {
   return path.posix.join(assetsSubDirectory, _path)
 }
 
-exports.cssLoaders = function (options) {
-  options = options || {}
+exports.cssLoaders = function (optionsPar) {
+  let options = optionsPar || {}
 
   var cssLoader = {
     loader: 'css-loader',

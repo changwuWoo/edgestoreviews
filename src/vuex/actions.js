@@ -50,4 +50,3 @@ export default {
     commit(types.COM_SHOW_TIME_PICKER, status)
   }
 }
-

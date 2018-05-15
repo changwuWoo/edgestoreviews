@@ -33,4 +33,3 @@ export function alert (str) {
     store.dispatch('showAlert', false)
   }, 1500)
 }
-

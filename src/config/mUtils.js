@@ -1,15 +1,13 @@
 /**
- * Created by Administrator on 2017/5/15.
- */
-/**
  * 存储localStorage
  */
 export const setStore = (name, content) => {
+  let data
   if (!name) return
   if (typeof content !== 'string') {
-    content = JSON.stringify(content)
+    data = JSON.stringify(content)
   }
-  window.localStorage.setItem(name, content)
+  window.localStorage.setItem(name, data)
 }
 
 /**
