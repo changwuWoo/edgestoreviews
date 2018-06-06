@@ -1,46 +1,46 @@
+'use strict'
 const path = require('path')
 const utils = require('./utils')
-const webpack = require('webpack')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
-const IS_DEV = process.env.NODE_ENV === 'development'
-const ROOT_PATH = path.resolve(__dirname, '../')
-const BUILD_PATH = IS_DEV ? path.resolve(ROOT_PATH, '../nextCloudLib-dev/web/webapp/public') : path.resolve(ROOT_PATH, 'public')
-const JS_NAME = IS_DEV ? 'js/[name].js' : 'js/[name].[chunkhash.8].js'
-const CSS_NAME = IS_DEV ? 'css/[name].css' : 'css/[name].[chunkhash.8].css'
-const LESS_NAME = IS_DEV ? '[name]_[local]_[hash:base64:4]' : '[hash:base64:8]'
+
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
+
+const createLintingRule = () => ({
+  test: /\.(js|vue)$/,
+  loader: 'eslint-loader',
+  enforce: 'pre',
+  include: [resolve('src'), resolve('test')],
+  options: {
+    formatter: require('eslint-friendly-formatter'),
+    emitWarning: !config.dev.showEslintErrorsInOverlay
+  }
+})
 
 module.exports = {
-  stats: {
-    chunks: false,
-    children: false
-  },
+  context: path.resolve(__dirname, '../'),
   entry: {
-    lib: []
+    app: './src/main.js'
   },
   output: {
-    path: path.resolve(BUILD_PATH),
-    // filename: JS_NAME,
-    publicPath: './public'
+    path: config.build.assetsRoot,
+    filename: '[name].js',
+    publicPath: process.env.NODE_ENV === 'production'
+      ? config.build.assetsPublicPath
+      : config.dev.assetsPublicPath
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json', '.jsx']
+    extensions: ['.js', '.vue', '.json'],
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js',
+      '@': resolve('src'),
+    }
   },
-  plugins: [
-    // new ExtractTextPlugin(CSS_NAME,{allChunks:true})
-  ],
   module: {
     rules: [
-      {
-        test: /\.(js|vue)$/,
-        loader: 'eslint-loader',
-        enforce: 'pre',
-        include: [resolve('src'), resolve('test')],
-        options: {
-          formatter: require('eslint-friendly-formatter')
-        }
-      },
+      ...(config.dev.useEslint ? [createLintingRule()] : []),
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -49,11 +49,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test')]
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -61,6 +57,14 @@ module.exports = {
         options: {
           limit: 10000,
           name: utils.assetsPath('img/[name].[hash:7].[ext]')
+        }
+      },
+      {
+        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: utils.assetsPath('media/[name].[hash:7].[ext]')
         }
       },
       {
@@ -72,5 +76,17 @@ module.exports = {
         }
       }
     ]
+  },
+  node: {
+    // prevent webpack from injecting useless setImmediate polyfill because Vue
+    // source contains it (although only uses it if it's native).
+    setImmediate: false,
+    // prevent webpack from injecting mocks to Node native modules
+    // that does not make sense for the client
+    dgram: 'empty',
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    child_process: 'empty'
   }
 }

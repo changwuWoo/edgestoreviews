@@ -1,42 +1,29 @@
-// http://eslint.org/docs/user-guide/configuring
+// https://eslint.org/docs/user-guide/configuring
 
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
   parserOptions: {
-    sourceType: 'module'
+    parser: 'babel-eslint'
   },
   env: {
     browser: true,
   },
-  // https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style
-  extends: 'standard',
+  extends: [
+    // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
+    // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
+    'plugin:vue/essential', 
+    // https://github.com/standard/standard/blob/master/docs/RULES-en.md
+    'standard'
+  ],
   // required to lint *.vue files
   plugins: [
-    'html'
+    'vue'
   ],
   // add your custom rules here
-  'rules': {
-    'import/no-unresolved': 0,
+  rules: {
+    // allow async-await
+    'generator-star-spacing': 'off',
     // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
-    'no-console': 0,
-    'no-unused-vars': [0, {'args': 'none'}],
-    'semi': [2, 'never'],
-    'object-curly-spacing': [2, 'never'],
-    'comma-dangle': [2, 'never'],
-    'no-unused-expressions': [2, {'allowShortCircuit': true, 'allowTernary': true}],
-    'prefer-const': 0,
-    'prefer-template': 0,
-    'prefer-arrow-callback': 0,
-    'max-len': [0, 220],
-    'space-before-function-paren': [2, {'anonymous': 'ignore', 'named': 'always'}],
-    'object-shorthand': [0, 'always', {'avoidQuotes': true}],
-    'no-param-reassign': [2, {'props': false}],
-    'global-require': 0,
-    'brace-style': [2, 'stroustrup', {'allowSingleLine': true}],
-    'arrow-body-style': [0, 'always'],
-    'func-names': [2, 'never'],
-    'default-case': 0
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
   }
 }
