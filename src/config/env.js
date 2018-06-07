@@ -13,8 +13,7 @@ const imgBaseUrl = 'https://fuss10.elemecdn.com'
 if (process.env.NODE_ENV === 'development') {
   baseUrl = 'http://localhost:80/woostoreadmin'
   routerMode = 'hash'
-}
-else {
+} else {
   baseUrl = 'http://localhost:80/woostoreadmin'
   routerMode = 'hash'
 }

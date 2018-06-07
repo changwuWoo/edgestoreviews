@@ -2,6 +2,7 @@
  * Created by Administrator on 2017/5/16.
  */
 import * as types from './types'
+
 export default {
   [types.SET_USER_INFO] (state, res) {
     //  alert('SET_USER_INFO')

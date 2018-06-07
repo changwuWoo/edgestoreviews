@@ -11,8 +11,7 @@ export function toast (str, icon) {
   if (icon === 'success') {
     store.dispatch('showSuccess', true)
     store.dispatch('showFail', false)
-  }
-  else {
+  } else {
     store.dispatch('showSuccess', false)
     store.dispatch('showFail', true)
   }

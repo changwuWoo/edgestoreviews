@@ -39,8 +39,7 @@ function authService (router) {
       next({
         path: CONST.LOGINPAGE
       })
-    }
-    else {
+    } else {
       next()
     }
   })

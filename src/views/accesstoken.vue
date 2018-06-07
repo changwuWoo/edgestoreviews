@@ -56,7 +56,8 @@
                   </span>
                 </div>
                 <div class="authInfo">
-                  <div class="face" id="auth_area" tabindex="1" draggable="false" style="height: 200px;border: #9f75ff solid 1px;display: block">
+                  <div class="face" id="auth_area" tabindex="1" draggable="false"
+                       style="height: 200px;border: #9f75ff solid 1px;display: block">
                     <img id="auth_face">
                     <span id="auth_mengban" class=""></span>
                     <span class="uin" id="auth_uin"></span>
@@ -66,7 +67,7 @@
                       <label>用户令牌登录</label>
                       <textarea v-model="loginToken" class="form-control" rows="3"></textarea>
                     </div>
-                    <div @click="accessLogin"class="btn btn-success">令牌登录</div>
+                    <div @click="accessLogin" class="btn btn-success">令牌登录</div>
                   </div>
                 </div>
                 <div class="cancleAuthOuter" id="cancleAuthOuter">
@@ -122,8 +123,9 @@
 </template>
 <script>
   import util from '../config/utils'
-  import {mapState, mapMutations} from 'vuex'
+  import { mapState, mapMutations } from 'vuex'
   import api from '../config/api'
+
   export default {
     data () {
       return {
@@ -133,10 +135,9 @@
     mounted () {
       this.initData()
     },
-    computed: {
-    },
+    computed: {},
     methods: {
-      initData: function() {
+      initData: function () {
         this.loginToken = util.token.get()
       },
       accessLogin: function () {
@@ -156,8 +157,8 @@
               self.$router.push({path: '/login', replace: true})
             }
           }).catch(err => {
-            console.log(err)
-          })
+          console.log(err)
+        })
       }
     }
   }
@@ -165,6 +166,7 @@
 <style>
   @import "../assets/css/bootstrap.css";
   @import "../assets/css/font-awesome.css";
+
   html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, input, button, textarea, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
     margin: 0;
     padding: 0

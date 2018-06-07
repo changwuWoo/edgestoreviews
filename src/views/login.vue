@@ -42,9 +42,10 @@
   </div>
 </template>
 <script>
-  import {mapState, mapGetters} from 'vuex'
+  import { mapState, mapGetters } from 'vuex'
   import api from '../config/api'
   import util from '../config/utils'
+
   export default {
     name: 'login',
     data () {

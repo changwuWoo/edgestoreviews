@@ -106,9 +106,10 @@
   @import "../assets/css/style.css";
 </style>
 <script>
-  import {mapState, mapGetters} from 'vuex'
+  import { mapState, mapGetters } from 'vuex'
   import api from '../config/api'
-  export default{
+
+  export default {
     data () {
       return {}
     },

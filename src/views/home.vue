@@ -93,10 +93,11 @@
   @import "../assets/css/style.css";
 </style>
 <script>
-  import {mapState, mapGetters, mapMutations} from 'vuex'
+  import { mapState, mapGetters, mapMutations } from 'vuex'
   import api from '../config/api'
   import util from '../config/utils'
-  export default{
+
+  export default {
     data () {
       return {
         loginToken: ''
